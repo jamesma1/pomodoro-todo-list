@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 
 function Pomodoro() {
-    const [minutes, setMinutes] = useState(1);
-    const [seconds, setSeconds] = useState(0);
+    const [minutes, setMinutes] = useState(0);
+    const [seconds, setSeconds] = useState(5);
     const [displayMessage, setDisplayMessage] = useState(false);
     const shouldStart = useRef(false);
 
@@ -33,11 +33,18 @@ function Pomodoro() {
 
     function triggerCountdown() {
         shouldStart.current = true;
-        setMinutes(minutes - 1);
-        setSeconds(59);
+        if (minutes !== 0) {
+            setMinutes(minutes - 1);
+        }
+        if (seconds !== 0) {
+            setSeconds(seconds - 1);
+        } else {
+            setSeconds(59);
+        }
     }
 
     function resetCountdown() {
+        setDisplayMessage(false);
         shouldStart.current = false;
         setMinutes(25);
         setSeconds(0);

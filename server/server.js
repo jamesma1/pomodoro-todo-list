@@ -44,7 +44,7 @@ app.use((err, req, res, next) => {
     return res.status(errorObj.status).json(errorObj.message);
 })
 
-const CONNECTION_URL = 'mongodb+srv://jamesma1:7iPdUmgzZXDRZxHR@cluster0.6quyp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const CONNECTION_URL = '' //
 mongoose.connect(CONNECTION_URL)
     .then(() => app.listen(PORT, () => console.log(`Server listening on port: ${PORT}`)))
     .catch((error) => console.log(error.message));
