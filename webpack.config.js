@@ -3,22 +3,17 @@ const path = require('path');
 
 module.exports = {
     mode: process.env.NODE_ENV,
-    entry: path.resolve(__dirname, '/src/index.js'),
+    entry: path.resolve(__dirname, 'src/index.js'),
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'dist/'),
     },
-    plugins: [
-        new HtmlWebPackPlugin({
-            template: './src/index.html'
-        }),
-    ],
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
-                loader: require.resolve('babel-loader'),
+                loader: 'babel-loader',
             },
             {
                 test: /\.s?css/,
@@ -31,9 +26,22 @@ module.exports = {
         ],
     },
     devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'dist'),
+            publicPath: '/dist'
+          },
         proxy: {
-            '/api': 'http://localhost:3000'
-        }
-    }
+            '/': {
+                target: 'http://localhost:3000/',
+                secure: false,
+            },
+        },
+        hot: true,
+    },
+    plugins: [
+        new HtmlWebPackPlugin({
+            template: './src/index.html'
+        }),
+    ],
 
 };
