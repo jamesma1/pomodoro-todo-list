@@ -1,1 +1,1 @@
-# solo-project
+# pomodoro-todo-list
